@@ -1,5 +1,5 @@
 export interface CreditCard {
-    id: number;
+    id: number | undefined;
     name: string;
     description: string;
     bankName: string;
@@ -9,6 +9,6 @@ export interface CreditCard {
     recommendedScore: string;
     annualFee: number;
     termsAndConditions: string;
-    createdData: string;
+    createdDate: string;
     updatedDate: string;
 }
