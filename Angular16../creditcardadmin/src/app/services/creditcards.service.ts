@@ -20,9 +20,9 @@ export class CreditcardsService {
     return this.httpClient.get<CreditCard[]>(this.apiUrl);
   }
 
-  hetCreditCardById(id: Number): Observable<CreditCard> {
+  getCreditCardById(id: Number): Observable<CreditCard> {
     const url = `${this.apiUrl}/${id}`;
-    return this.httpClient.get<CreditCard>(this.apiUrl);
+    return this.httpClient.get<CreditCard>(url);
   }
 
   updateCreditCard(creditCard:CreditCard): Observable<CreditCard> {
