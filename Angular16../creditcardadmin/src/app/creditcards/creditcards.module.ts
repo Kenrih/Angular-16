@@ -1,52 +1,54 @@
-import { Component, ViewChild } from '@angular/core';
-import { CreditCard } from '../models/credit-card';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator} from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { CreditcardsService } from '../services/creditcards.service';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-@Component({
-  selector: 'app-creditcards',
-  templateUrl: './creditcards.component.html',
-  styleUrls: ['./creditcards.component.scss']
+import { CreditcardsRoutingModule } from './creditcards-routing.module';
+import { CreditcardsComponent } from './creditcards.component';
+import { AddComponent } from './add/add.component';
+import { ViewComponent } from './view/view.component';
+import { EditComponent } from './edit/edit.component';
+import { DeleteComponent } from './delete/delete.component';
+
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    CreditcardsComponent,
+    AddComponent,
+    ViewComponent,
+    EditComponent,
+    DeleteComponent
+  ],
+  imports: [
+    CommonModule,
+    CreditcardsRoutingModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    RouterModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ]
 })
-export class CreditcardsComponent {
-
-  creditcards: CreditCard[] = [];
-
-  creditCardMaximumAmount: number = 0;
-  creditCardMaximumInterest: number = 0;
-
-  constructor(private creditCardsService: CreditcardsService) {
-    this.creditCardsService.getCreditCards().subscribe((data:CreditCard[]) => {
-      this.creditcards = data;
-
-      this.dataSource = new MatTableDataSource(this.creditcards);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-
-      this.calculateMetrics();
-
-    })
-  }
-
-  dataSource = new MatTableDataSource(this.creditcards);
-
-  displayColumns = ["select", "id", "name", "description", "bankName", "maxCredit", "interestRate", "active", "recommendedScore", "actions"];
-
-  selection = new SelectionModel(true, []);
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  selectHandler(row: CreditCard){
-    this.selection.toggle(row as never);
-  }
-
-  calculateMetrics(){
-    this.creditCardMaximumAmount = this.creditcards.filter(card => card.maxCredit > 3000).length;
-    this.creditCardMaximumInterest = this.creditcards.filter(card => card.interestRate > 7).length;
-    
-  }
-}
+export class CreditcardsModule { }
